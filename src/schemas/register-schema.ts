@@ -13,5 +13,5 @@ export default object({
   confirmPassword: string().required().min(6).oneOf([ref("password")], "passwords have to match"),
 
   privateProfile: bool().default(false),
-  privatePolicyAccepted: bool().isTrue(),
+  privatePolicyAccepted: bool().required().isTrue(),
 })

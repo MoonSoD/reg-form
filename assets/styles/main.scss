@@ -223,6 +223,9 @@ body {
     left: 1.125rem;
     bottom: -2.5rem;
     font-weight: 500;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &--error-border {

@@ -11,6 +11,11 @@ body {
   height: 100dvh;
   width: 100%;
 
+  @media only screen and (max-width: 768px) {
+    height: 100%;
+    overflow: scroll;
+  }
+
   font-family: 'DM Sans', sans-serif;
 
   margin: 0;
@@ -19,6 +24,40 @@ body {
 .text--heading {
   font-weight: 500;
   font-size: 3.75rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.875rem;
+  }
+
+  &--form {
+    margin-bottom: 2.625rem;
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: 0.8125rem;
+      margin-left: 20px;
+
+      align-self: start;
+    }
+  }
+
+  &--sm {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+}
+
+.grid {
+  &--mb-order-0 {
+    @media only screen and (max-width: 768px) {
+      order: 0;
+    }
+  }
+
+  &--mb-order-1 {
+    @media only screen and (max-width: 768px) {
+      order: 1;
+    }
+  }
 }
 
 .text--error {
@@ -37,11 +76,22 @@ body {
   background-color: #FFF;
 
   height: calc(100dvh - 4rem);
-
   width: 54.625rem;
   max-height: 55.4375rem;
 
-  border-radius: 1.5625rem;
+  @media only screen and (max-width: 768px) {
+    width: calc(100vw - 2.5rem);
+
+    min-height: calc(100vh);
+
+    max-height: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    margin: 1.25rem auto;
+  }
+
+    border-radius: 1.5625rem;
 
   box-shadow: 0px 40px 60px -33px #0000000A;
 }
@@ -54,6 +104,14 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.625rem;
+
+    @media only screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+
+      height: 100%;
+      width: calc(100% - 40px);
+    }
 
     padding: 0;
 
@@ -83,6 +141,7 @@ body {
 
   transition: all 0.25s ease;
 }
+
 
 
 .input-group {
@@ -187,8 +246,22 @@ body {
   }
 }
 
+.form-line {
+  width: 100%;
+  height: 1px;
+
+  background-color: #F1F3F5;
+
+  margin-top: -2px;
+  margin-bottom: 4px;
+}
+
 .check-policy {
   margin-left: -1.625rem;
+
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+  }
 }
 
 .row--flex {

@@ -1,6 +1,6 @@
 <template>
   <section class="wrapper">
-    <h1 class="text--heading">Registration Form</h1>
+    <h1 class="text--heading text--heading--form">Registration Form</h1>
     <ul class="form__grid">
       <li class="form__grid__entry--fluid">
         <input-text name="email" label="Email"/>
@@ -12,7 +12,7 @@
         <input-text name="lastName" label="Second name"/>
       </li>
       <li class="form__grid__entry">
-        <input-select name="language" label="Language" :options="languages"/>
+        <input-select name="language" label="Language" :options="languages" :has-icons="true"/>
       </li>
       <li class="form__grid__entry">
         <input-select name="country" label="Country"
@@ -25,17 +25,20 @@
         <input-text name="confirmPassword" label="Confirm Password" type="password"/>
       </li>
       <li class="form__grid__entry--fluid row--flex">
-        <h2>
+        <h2 class="text--heading--sm">
           Private Profile
         </h2>
         <div class="row--flex">
           <input-switch name="privateProfile" />
         </div>
       </li>
-      <li class="form__grid__entry">
+      <li class="form__grid__entry--fluid">
+        <div class="form-line"/>
+      </li>
+      <li class="form__grid__entry grid--mb-order-1">
         <custom-button text="Sign up" @click="onSubmit" />
       </li>
-      <li class="form__grid__entry row--flex">
+      <li class="form__grid__entry row--flex grid--mb-order-0">
         <div class="check-policy">
           <input-checkbox name="privatePolicyAccepted" label="Creating an account means you’re okay with our Privacy Policy."/>
         </div>
@@ -56,21 +59,20 @@ import {useRouter} from "nuxt/app";
 import InputSwitch from "../components/input-switch";
 import {computed} from "@vue/reactivity";
 
-
 const {handleSubmit} = useForm({
   validationSchema: registerSchema,
 })
+
+const router = useRouter();
 
 const onSubmit = handleSubmit(values => {
   console.table(values);
   router.push({ path: "/success" });
 })
 
-const router = useRouter();
-
 const languages = [
   {
-    name: "Slovak"
+    name: "Slovak",
   },
   {
     name: "English"

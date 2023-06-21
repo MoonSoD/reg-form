@@ -41,5 +41,10 @@ const props = defineProps({
     background: linear-gradient(269.72deg, #8600EF 0.1%, #004EEF 96.94%);
     box-shadow: 0rem 2rem 2.75rem -0.8125rem #223BF059;
    }
+
+  @media only screen and (max-width: 768px) {
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 </style>

@@ -40,6 +40,10 @@
 
 .content {
   max-width: 31.25rem;
+
+  @media only screen and (max-width: 768px) {
+    width: calc(100% - 2.5rem);
+  }
 }
 
 .text--heading {

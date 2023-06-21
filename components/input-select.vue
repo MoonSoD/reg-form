@@ -2,7 +2,9 @@
   <div class="select">
     <div @click="toggle()" ref="focusGroup" class="input-group"
          :class="[selectBodyClass, {'input-group--shadowed': isOpen, 'input-group--error-border': errorMessage && meta.touched}]">
-      <div class="label">{{ selectedOption ?? props.label }}</div>
+      <div class="label">
+        {{ selectedOption ?? props.label }}
+      </div>
       <button @click="toggle()" class="input-group__side-btn" :class="{'input-group__side-btn--flipped': isOpen}">
         <svg width="12" height="7" viewBox="0 0 14 7" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -23,12 +25,15 @@
             :class="{'input-group__dropdown__entry--focused': preSelectedOption === option.name}"
             @click="selectOption(option.name)"
         >
-          {{option.name}}
+          <img v-if="hasIcons" :src="`/images/${option.name}.svg`" alt="Slovak flag"/>
+          <p>
+            {{ option.name }}
+          </p>
         </li>
       </ul>
     </Transition>
     <Transition>
-      <p v-if="errorMessage && meta.touched" class="input-group__error-message text--error">{{errorMessage}}</p>
+      <p v-if="errorMessage && meta.touched" class="input-group__error-message text--error">{{ errorMessage }}</p>
     </Transition>
   </div>
 </template>
@@ -38,7 +43,11 @@ import {onClickOutside, useFocusWithin, useToggle} from "@vueuse/core";
 import {computed, ref, toRef} from "@vue/reactivity";
 import {useField} from "vee-validate";
 import {autoPlacement, flip, shift, useFloating} from "@floating-ui/vue";
-import {onMounted} from "vue";
+import {onMounted, PropType} from "vue";
+
+export interface SelectOption {
+  name: string;
+}
 
 const props = defineProps({
   name: {
@@ -50,16 +59,16 @@ const props = defineProps({
     required: true
   },
   options: {
-    type: Array,
+    type: Array as PropType<SelectOption[]>,
     required: true
+  },
+  hasIcons: {
+    type: Boolean,
+    required: false,
   }
 });
 
-interface Option {
-  name: string;
-}
-
-const options = computed<Option[]>(() => props.options as Option[]);
+const options = computed<SelectOption[]>(() => props.options as SelectOption[]);
 
 const preSelectedOption = ref();
 
@@ -93,12 +102,13 @@ onMounted(() => {
 
 const toPrev = () => {
   let index = options.value.findIndex(opt => opt.name === preSelectedOption.value);
+  console.log("Index prev loc " + index);
 
-  if (index < options.value.length - 1) {
-    index = options.value.length;
+  if (index - 1 < 0) {
+    index = options.value.length - 1;
   }
 
-  if (options[index - 1]?.name) {
+  if (options.value[index - 1]?.name) {
     preSelectedOption.value = options.value[--index].name;
   }
 }
@@ -192,6 +202,8 @@ onClickOutside(focusGroup, () => toggle(false), {ignore: [dropdown]})
       display: flex;
       align-items: center;
       flex-shrink: 0;
+
+      column-gap: 1.5rem;
 
       height: 3rem;
       padding: 0 1.125rem;
